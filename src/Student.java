@@ -2,50 +2,42 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Student {
-    private double assignAvg;
-    private double discAvg;
-    private double midAvg;
-    Scanner scan = new Scanner(System.in);
-
-    public Student() {
-
-    }
+    private double average;
 
     public void studentGrades() {
-        System.out.print("Enter the number of Assignment grades: ");
-        int numofAssignGrades = scan.nextInt();
+        Scanner scan = new Scanner(System.in);
+
+        System.out.print("Enter how many subjects for this semester: ");
+        int numOfSubjects = scan.nextInt();
+
         ArrayList<Double> assignArray = new ArrayList<>();
-        for (int i = 0; i < numofAssignGrades; i++) {
-            System.out.printf("Enter Assignment grade number %d: ", i + 1);
-            assignArray.add(scan.nextDouble());
-        }
-        System.out.print("Enter the number of Discussion grades: ");
-        int numofDiscGrades = scan.nextInt();
-        ArrayList<Double> discArray = new ArrayList<>();
-        for (int i = 0; i < numofDiscGrades; i++) {
-            System.out.printf("Enter Discussion grade number %d: ", i + 1);
-            discArray.add(scan.nextDouble());
-        }
 
-        System.out.print("Enter the number of Midweek Assignment grades: ");
-        int numofMidGrades = scan.nextInt();
-        ArrayList<Double> midArray = new ArrayList<>();
-        for (int i = 0; i < numofMidGrades; i++) {
-            System.out.printf("Enter Midweek Assignment grade number %d: ", i + 1);
-            midArray.add(scan.nextDouble());
+        if(numOfSubjects >= 20) {
+            System.out.print("Are you sure you want to enter more than 20 subjects? | Y for Yes | N for No: ");
+            if (scan.next().equalsIgnoreCase("Y")) {
+                for (int i = 0; i < numOfSubjects; i++) {
+                    System.out.printf("Enter the grade for subject # %d: ", i + 1);
+                    assignArray.add(scan.nextDouble());
+                }
+            } else {
+                System.out.println("Please rerun the program if you mistakenly entered more than 20 subjects.");
+                System.exit(0);
+            }
+        } else {
+            for (int i = 0; i < numOfSubjects; i++) {
+                System.out.printf("Enter the grade for subject # %d: ", i + 1);
+                assignArray.add(scan.nextDouble());
+            }
         }
-
-        AssignAvg(assignArray, numofAssignGrades);
-        DiscAvg(discArray, numofDiscGrades);
-        MidAvg(midArray, numofMidGrades);
+        AssignAvg(assignArray, numOfSubjects);
     }
 
-    public void setAssignAvg(double a) {
-        assignAvg = a;
+    public void setAverage(double a) {
+        average = a;
     }
 
-    public double getAssignAvg() {
-        return assignAvg;
+    public double getAverage() {
+        return average;
     }
 
     public void AssignAvg(ArrayList<Double> arrAssign, int n) {
@@ -54,41 +46,7 @@ public class Student {
             sum += i;
         }
         double assignAvg = sum / n;
-        setAssignAvg(assignAvg);
-    }
-
-    public void setDiscAvg(double d) {
-        discAvg = d;
-    }
-
-    public double getDiscAvg() {
-        return discAvg;
-    }
-
-    public void DiscAvg(ArrayList<Double> arrDisc, int n) {
-        double sum = 0;
-        for (double i : arrDisc) {
-            sum += i;
-        }
-        double discAvg = sum / n;
-        setDiscAvg(discAvg);
-    }
-
-    public void setMidAvg(double m) {
-        midAvg = m;
-    }
-
-    public double getMidAvg() {
-        return midAvg;
-    }
-
-    public void MidAvg(ArrayList<Double> arrMid, int n) {
-        double sum = 0;
-        for (double i : arrMid) {
-            sum += i;
-        }
-        double midAvg = sum / n;
-        setMidAvg(midAvg);
+        setAverage(assignAvg);
 
     }
 } 
